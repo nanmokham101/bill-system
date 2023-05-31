@@ -1,8 +1,8 @@
-package com.test.student.security;
+package com.coding.assignment.security;
 
-import com.test.student.security.jwt.AuthEntryPointJwt;
-import com.test.student.security.jwt.AuthTokenFilter;
-import com.test.student.security.services.UserDetailsServiceImpl;
+import com.coding.assignment.security.jwt.AuthTokenFilter;
+import com.coding.assignment.security.jwt.AuthEntryPointJwt;
+import com.coding.assignment.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,5 @@
-package com.test.student.models;
+package com.coding.assignment.models;
 
 public enum ERole {
-  USER
+  USER,ADMIN;
 }

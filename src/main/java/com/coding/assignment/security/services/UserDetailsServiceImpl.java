@@ -1,4 +1,4 @@
-package com.test.student.security.services;
+package com.coding.assignment.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.test.student.models.User;
-import com.test.student.repository.UserRepository;
+import com.coding.assignment.models.User;
+import com.coding.assignment.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

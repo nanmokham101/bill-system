@@ -1,26 +1,29 @@
-package com.test.student.common;
+package com.coding.assignment.common;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class ApiResponse<T> {
 
-    private String code;
     private String message;
     private Object result;
-    
-    public ApiResponse() {
-    	this.code =  Constant.OK;
+
+
+    public ApiResponse(String message, Object result) {
+        this.message = message;
+        this.result = result;
     }
+
     public ApiResponse(String message) {
         this.message = message;
     }
+
+
     public static ApiResponse create() {
     	ApiResponse response = new ApiResponse();
-    	response.code = Constant.OK;
     	response.message = Constant.SUCCESS;
     	return response;
     	

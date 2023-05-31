@@ -1,4 +1,4 @@
-package com.test.student.config;
+package com.coding.assignment.config;
 
 
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.test.student.payload.response;
+package com.coding.assignment.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-	private String message;
-	private String accessToken;
+	private String status_message;
+	private String access_token;
 }

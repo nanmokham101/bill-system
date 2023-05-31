@@ -1,16 +1,18 @@
-package com.test.student.controllers;
+package com.coding.assignment.controllers;
 
-import com.test.student.models.ERole;
-import com.test.student.models.Role;
-import com.test.student.models.User;
-import com.test.student.payload.request.LoginRequest;
-import com.test.student.payload.request.SignupRequest;
-import com.test.student.payload.response.MessageResponse;
-import com.test.student.payload.response.UserResponse;
-import com.test.student.repository.RoleRepository;
-import com.test.student.repository.UserRepository;
-import com.test.student.security.jwt.JwtUtils;
-import com.test.student.security.services.UserDetailsImpl;
+import com.coding.assignment.common.Constant;
+import com.coding.assignment.models.Role;
+import com.coding.assignment.payload.request.RoleRequest;
+import com.coding.assignment.payload.request.SignupRequest;
+import com.coding.assignment.payload.response.UserResponse;
+import com.coding.assignment.repository.RoleRepository;
+import com.coding.assignment.security.services.UserDetailsImpl;
+import com.coding.assignment.models.ERole;
+import com.coding.assignment.models.User;
+import com.coding.assignment.payload.request.LoginRequest;
+import com.coding.assignment.payload.response.MessageResponse;
+import com.coding.assignment.repository.UserRepository;
+import com.coding.assignment.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,22 +34,22 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("")
 public class AuthController {
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Autowired
-    JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
 
 
     @PostMapping("/login")
@@ -67,7 +69,7 @@ public class AuthController {
 //                    .collect(Collectors.toList());
 
             String accessToken = jwtUtils.generateAccessToken(userDetails);
-            UserResponse response = new UserResponse("Login is successful", accessToken);
+            UserResponse response = new UserResponse(Constant.LOGIN_SUCCESS, accessToken);
 
             return ResponseEntity.ok().body(response);
 
@@ -79,11 +81,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws MessagingException, UnsupportedEncodingException {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
+            return ResponseEntity.badRequest().body(new MessageResponse(Constant.USER_ALREADY_TAKEN));
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.badRequest().body(new MessageResponse(Constant.EMAIL_ALREADY_TAKEN));
         }
 
         // Create new user's account
@@ -102,13 +104,29 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse(Constant.REGISTER_SUCCESS));
     }
 
-    @PostMapping("/signout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
     }
+    @PostMapping("/add-role")
+    public ResponseEntity<?> addRole(@Valid @RequestBody RoleRequest roleRequest) {
+        Role role = new Role();
+        if(roleRequest.getName().equals(ERole.USER.name())){
+            role.setName(ERole.USER);
+
+        }else if(roleRequest.getName().equals(ERole.ADMIN.name())){
+            role.setName(ERole.ADMIN);
+        }
+        if (roleRepository.existsRoleByName(role.getName())) {
+            return ResponseEntity.badRequest().body(new MessageResponse(Constant.ROLE_ALREADY_EXISTS));
+        }
+        roleRepository.save(role);
+        return ResponseEntity.ok(new MessageResponse(Constant.SAVE_ROLE_SUCCESS));
+    }
+
 }

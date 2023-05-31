@@ -1,11 +1,11 @@
-package com.test.student.repository;
+package com.coding.assignment.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.test.student.models.User;
+import com.coding.assignment.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

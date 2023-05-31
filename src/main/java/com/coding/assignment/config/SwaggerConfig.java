@@ -1,4 +1,4 @@
-package com.test.student.config;
+package com.coding.assignment.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,10 +42,10 @@ public class SwaggerConfig {
 
     @SuppressWarnings("rawtypes")
     private ApiInfo metaInfo() {
-        ApiInfo apiInfo = new ApiInfo("Student API", "Student API for fontend", "1.0",
-                "https://www.facebook.com/student",
-                new Contact("Student ", "https://www.youtube.com/channel/Student",
-                        "student@gmail.com"),
+        ApiInfo apiInfo = new ApiInfo("Citizen Pay  API", "Citizen Pay  API for fontend", "1.0",
+                "https://www.facebook.com/citizenpay ",
+                new Contact("CitizenPay  ", "https://www.youtube.com/channel/citizenpay ",
+                        "citizenpay@gmail.com"),
                 "Apache License Version 2.0", "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>());
 
         return apiInfo;

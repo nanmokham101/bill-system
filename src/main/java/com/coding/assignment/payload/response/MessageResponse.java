@@ -1,4 +1,4 @@
-package com.test.student.payload.response;
+package com.coding.assignment.payload.response;
 
 import lombok.Getter;
 import lombok.Setter;
